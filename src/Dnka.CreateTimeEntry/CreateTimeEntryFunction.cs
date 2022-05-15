@@ -10,14 +10,23 @@ using Newtonsoft.Json;
 
 namespace Dnka.CreateTimeEntry
 {
-    public static class CreateTimeEntryFunction
+    public class CreateTimeEntryFunction
     {
-        [FunctionName("Function1")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly IDataverseService _dataverseService;
+
+        public CreateTimeEntryFunction(
+            IDataverseService dataverseService
+            )
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _dataverseService = dataverseService;
+        }
+
+        [FunctionName("CreateTimeEntry")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "timeentry")] HttpRequest req,
+            ILogger logger)
+        {
+            logger.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
 
