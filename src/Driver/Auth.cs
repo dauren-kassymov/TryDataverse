@@ -12,7 +12,7 @@ namespace Driver
         {
             var connectionUrl = "https://org6506b57b.crm4.dynamics.com";
             var clientId = "5844e71c-b693-4232-aa98-71360e0a8b40";
-            var clientSecret = "<PH>";
+            var clientSecret = "UEd8Q~C72n0WtesLt_CCWSykgKMd-Yf2633WkawC";
             //ClientSecret flow
             var connStr = $"AuthType=ClientSecret;Url={connectionUrl};ClientId={clientId};ClientSecret={clientSecret}";
 
