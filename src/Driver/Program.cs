@@ -41,7 +41,7 @@ namespace Driver
             Guid contactId = service.Create(entity);*/
 
 
-            var connectionUrl = "https://org6506b57b.crm4.dynamics.com";
+            /*var connectionUrl = "https://org6506b57b.crm4.dynamics.com";
             var clientId = "5844e71c-b693-4232-aa98-71360e0a8b40";
             var clientSecret = "UEd8Q~C72n0WtesLt_CCWSykgKMd-Yf2633WkawC";
             //ClientSecret flow
@@ -54,10 +54,20 @@ namespace Driver
                     Start = DateTime.Now,
                     End = DateTime.Now.AddDays(1),
                 }
-            }).GetAwaiter().GetResult().ToList();;
+            }).GetAwaiter().GetResult().ToList();*/
 
 
-            Console.ReadKey();
+            var service = new WebApiDataverseService();
+            IEnumerable<Guid> ids = service.CreateTimeEntries(new List<TimeEntryEntity>
+            {
+                new TimeEntryEntity
+                {
+                    Start = DateTime.Now,
+                    End = DateTime.Now.AddDays(1),
+                }
+            }).GetAwaiter().GetResult().ToList();
+
+             Console.ReadKey();
         }
     }
 
