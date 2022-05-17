@@ -14,8 +14,8 @@ namespace Dnka.TryDataverse.CreateTimeEntry.Services
                 throw new ArgumentException("StartOn should be less than EndOn");
             }
 
-            var end = request.EndOn;
-            var date = request.StartOn.Date;
+            var end = request.EndOn.ToUniversalTime();
+            var date = request.StartOn.ToUniversalTime().Date;
             while (date < end)
             {
                 yield return new TimeEntryEntity

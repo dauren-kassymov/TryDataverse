@@ -41,29 +41,18 @@ namespace Driver
             Guid contactId = service.Create(entity);*/
 
 
-            /*var connectionUrl = "https://org6506b57b.crm4.dynamics.com";
+            var connectionUrl = "https://org6506b57b.crm4.dynamics.com";
             var clientId = "5844e71c-b693-4232-aa98-71360e0a8b40";
             var clientSecret = "UEd8Q~C72n0WtesLt_CCWSykgKMd-Yf2633WkawC";
-            //ClientSecret flow
             var connStr = $"AuthType=ClientSecret;Url={connectionUrl};ClientId={clientId};ClientSecret={clientSecret}";
-            DataverseService service = new DataverseService(connStr);
-            IEnumerable<Guid> ids = service.CreateTimeEntries(new List<TimeEntryEntity>
+            TimeEntryRepository repo = new TimeEntryRepository(connStr);
+            TimeEntryService service = new TimeEntryService(repo);
+            IEnumerable<Guid> ids = service.CreateTimeEntriesAsync(new List<TimeEntryEntity>
             {
                 new TimeEntryEntity
                 {
-                    Start = DateTime.Now,
-                    End = DateTime.Now.AddDays(1),
-                }
-            }).GetAwaiter().GetResult().ToList();*/
-
-
-            var service = new WebApiDataverseService();
-            IEnumerable<Guid> ids = service.CreateTimeEntries(new List<TimeEntryEntity>
-            {
-                new TimeEntryEntity
-                {
-                    Start = DateTime.Now,
-                    End = DateTime.Now.AddDays(1),
+                    Start = DateTime.Now.Date,
+                    End = DateTime.Now.Date.AddDays(1),
                 }
             }).GetAwaiter().GetResult().ToList();
 

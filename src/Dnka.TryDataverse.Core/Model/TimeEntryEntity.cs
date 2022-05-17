@@ -1,14 +1,57 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
+using System;
 
 namespace Dnka.TryDataverse.Core.Model
 {
-    public class TimeEntryEntity
+    [EntityLogicalNameAttribute("msdyn_timeentry")]
+    public class TimeEntryEntity : Entity
     {
-        [JsonPropertyName("msdyn_start")]
-        public DateTime Start { get; set; }
+        public DateTime Start
+        {
+            get
+            {
+                return GetOrInit("msdyn_start");
+            }
+            set
+            {
+                AddOrSet("msdyn_start", value);
+            }
+        }
 
-        [JsonPropertyName("msdyn_end")]
-        public DateTime End { get; set; }
+        public DateTime End
+        {
+            get
+            {
+                return GetOrInit("msdyn_end");
+            }
+            set
+            {
+                AddOrSet("msdyn_end", value);
+            }
+        }
+
+        private DateTime GetOrInit(string prop)
+        {
+            if (Attributes.TryGetValue(prop, out object value))
+            {
+                return (DateTime)value;
+            }
+            else
+            {
+                var newVal = new DateTime();
+                AddOrSet(prop, newVal);
+                return newVal;
+            }
+        }
+
+        private void AddOrSet(string prop, DateTime newVal)
+        {
+            if (Attributes.Contains(prop))
+                Attributes[prop] = newVal;
+            else
+                Attributes.Add(prop, newVal);
+
+        }
     }
 }

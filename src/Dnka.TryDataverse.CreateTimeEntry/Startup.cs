@@ -14,8 +14,10 @@ namespace Dnka.TryDataverse.CreateTimeEntry
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            builder.Services.AddScoped<IRequestParser, RequestParser>();
             builder.Services.AddScoped<ITimeEntryBuilder, TimeEntryBuilder>();
-            builder.Services.AddScoped<IDataverseService, DataverseService>(s => new DataverseService(Environment.GetEnvironmentVariable("DataverseConnection")));
+            builder.Services.AddScoped<ITimeEntryService, TimeEntryService>();
+            builder.Services.AddScoped<ITimeEntryRepository, TimeEntryRepository>(s => new TimeEntryRepository(Environment.GetEnvironmentVariable("DataverseConnection")));
         }
     }
 }
